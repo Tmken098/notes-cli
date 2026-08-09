@@ -47,14 +47,13 @@ def cmd_list(args):
 
 def cmd_delete(args):
     notes = load_notes()
-    try:
-        notes.pop(args.id - 1)
-    except IndexError:
-        print(f"Заметка #{args.id} не найдена.")    
+    index = next((i for i, n in enumerate(notes) if n["id"] == args.id), None)
+    if index is None:
+        print(f"Заметка #{args.id} не найдена.")
         return
-    else:   
-        save_notes(notes)
-        print(f"Заметка #{args.id} удалена.")
+    notes.pop(index)
+    save_notes(notes)
+    print(f"Заметка #{args.id} удалена.")
            
 
 def build_parser():
