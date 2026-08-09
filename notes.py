@@ -54,7 +54,18 @@ def cmd_delete(args):
     notes.pop(index)
     save_notes(notes)
     print(f"Заметка #{args.id} удалена.")
-           
+
+
+def cmd_edit(args):
+    notes = load_notes()
+    index = next((i for i, n in enumerate(notes) if n["id"] == args.id), None)
+    if index is None:
+        print(f"Заметка #{args.id} не найдена.")
+        return
+    notes[index]["text"] = args.text
+    save_notes(notes)
+    print(f"Заметка #{args.id} обновлена.")
+    
 
 def build_parser():
     parser = argparse.ArgumentParser(prog="notes", description="Простой менеджер заметок")
@@ -70,6 +81,11 @@ def build_parser():
     delete_parser = subparsers.add_parser("delete", help="удалить заметку")
     delete_parser.add_argument("id", help="id заметки", type=int)
     delete_parser.set_defaults(func=cmd_delete)
+       
+    edit_parser = subparsers.add_parser('edit', help="редактировать заметку")
+    edit_parser.add_argument("id", help="id заметки", type=int)
+    edit_parser.add_argument("text", help="новый текст заметки")
+    edit_parser.set_defaults(func=cmd_edit)   
        
     return parser
 
