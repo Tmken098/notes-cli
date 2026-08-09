@@ -7,7 +7,15 @@
 ```bash
 python notes.py add "Купить хлеб"
 ```
-
+```bash
+python notes.py list
+```
+```bash
+python notes.py delete id
+```
+```bash
+python notes.py edit id text
+```
 ## Статус
 
-Проект в разработке. Реализована только команда `add`.
+Проект в разработке. Реализованы команды `add`, `list`, `delete`, `edit`
