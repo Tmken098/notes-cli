@@ -38,8 +38,11 @@ def cmd_add(args):
 
 def cmd_list(args):
     notes = load_notes()
+    if not notes:
+        print("Заметок пока нет")
+        return []
     for i in notes:
-        print(f"#{i["id"]}: {i["text"]}")
+        print(f"#{i['id']}: {i['text']}")
         
 
 def build_parser():
