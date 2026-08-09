@@ -36,6 +36,15 @@ def cmd_add(args):
     print(f"Заметка #{new_id} добавлена.")
 
 
+def cmd_list(args):
+    notes = load_notes()
+    if not notes:
+        print("Заметок пока нет")
+        return []
+    for i in notes:
+        print(f"#{i['id']}: {i['text']}")
+        
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="notes", description="Простой менеджер заметок")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -44,6 +53,9 @@ def build_parser():
     add_parser.add_argument("text", help="текст заметки")
     add_parser.set_defaults(func=cmd_add)
 
+    list_parser = subparsers.add_parser("list", help="посмотреть все заметки")
+    list_parser.set_defaults(func=cmd_list)
+    
     return parser
 
 
